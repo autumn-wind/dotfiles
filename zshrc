@@ -3,6 +3,7 @@
 
 # System defaults
   export PLATFORM=$(uname -s)
+  export DOTFILES="$HOME/dotfiles"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -75,6 +76,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -90,12 +92,41 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias stc="systemctl"
-alias tmux="tmux -2"
-alias -s c=vim
-alias sz="source $HOME/.zshrc"
-alias vz="vim $HOME/.zshrc"
-alias ep="echo $PATH"
+alias python='python3'
+alias p='python'
+
+alias mv='mv -v'
+alias cp='cp -vr'
+alias rm='rm -vr'
+
+alias tmux='tmux -2'
+alias pg='ps -e | grep'
+alias op='nautilus .'
+# alias op='dolphin .'
+
+alias ep='echo $path | python2.7 -c "for i in raw_input().split(): print i"'
+
+alias vv='vim $DOTFILES/vimrc'
+alias vt='vim $DOTFILES/tmux.conf'
+alias vz='vim $DOTFILES/zshrc'
+alias sz='source ~/.zshrc'
+
+alias t2x='tmux show-buffer | xclip -selection clipboard'
+alias x2t='tmux set-buffer "$(xclip -o)"'
+
+if [ "$shellx" = "zshx" ]; then
+	alias -s c=vim
+	alias -s h=vim
+	alias -s cpp=vim
+	alias -s hpp=vim
+	alias -s md=vim
+	alias -s sh=vim
+	alias -s py=vim
+	alias -s conf=vim
+fi
+
+alias gtag='ctags -R; cscope-indexer -r'
+alias dtag='rm tags cscope.files cscope.out'
 
 # autojump
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh

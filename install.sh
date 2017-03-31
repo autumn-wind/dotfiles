@@ -19,12 +19,6 @@ if [ -f ~/.vimrc ]; then
 fi
 echo "source $filepath/vimrc" > ~/.vimrc
 
-#if [ ! -d ~/.vim/bundle ]; then
-    #git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-#else
-    #echo "[*] Vundle exists."
-#fi
-
 
 if [ ! -d ~/.vim/autoload ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -38,12 +32,6 @@ if [ -f ~/.tmux.conf ]; then
     mv ~/.tmux.conf ~/.tmux.conf.bak
 fi
 echo "source $filepath/tmux.conf" > ~/.tmux.conf
-
-
-#if [ -f ~/.gitconfig ]; then
-    #mv ~/.gitconfig ~/.gitconfig.bak
-#fi
-#cp $filepath/gitconfig ~/.gitconfig
 
 
 if [ -f ~/.zshrc ]; then
@@ -61,8 +49,13 @@ fi
 #cp amber.zsh-theme  ~/.oh-my-zsh/themes
 
 
+#if [ -f ~/.gitconfig ]; then
+    #mv ~/.gitconfig ~/.gitconfig.bak
+#fi
+#cp $filepath/gitconfig ~/.gitconfig
+
+
 chsh -s /bin/zsh
-#echo "export DOTFILES=$filepath" >> $filepath/zshrc
 
 
 echo -n "[*] Ready to reboot? [y/N]"
