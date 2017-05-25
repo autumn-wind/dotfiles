@@ -57,13 +57,15 @@ plugins=(git autojump)
 
 # User configuration
 
-  export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/bin:/usr/sbin:/sbin:/usr/games"
+  export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/bin:/usr/sbin:/sbin:/usr/games:/usr/local/mysql/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
+  export PATH=$HOME/mongodb/bin:$PATH
+  export PATH=$HOME/mongodb/mongodb-linux-x86_64-3.4.4/bin:$PATH
 
   export GOROOT=$HOME/go
   export GOPATH=$HOME/GoWorkspace
-  export GOBIN=$GOPATH/bin
-  export PATH=$PATH:$GOROOT/bin:$GoWorkspace/bin
+  #export GOBIN=$GOPATH/bin
+  export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 source $ZSH/oh-my-zsh.sh
 
@@ -92,8 +94,9 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias python='python3'
-alias p='python'
+
+# alias python='python3'
+alias p='python3'
 
 alias mv='mv -v'
 alias cp='cp -vr'
@@ -130,25 +133,5 @@ alias dtag='rm tags cscope.files cscope.out'
 
 # autojump
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
-
-# trashbin
-#mkdir -p ~/.trash  
-#alias rm=trash    
-#alias lt="la ~/.trash"
-
-#trash()  
-#{  
-  #mv $@ ~/.trash/  
-#}  
-
-#ctr()  
-#{  
-	#echo -n "clear sure?[n]" 
-	#read confirm  
-	#if [ "$confirm"x = "y"x ]
-	#then
-		#/bin/rm -rf ~/.trash/*  
-	#fi
-#}  
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

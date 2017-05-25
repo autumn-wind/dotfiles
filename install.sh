@@ -2,24 +2,30 @@
 
 filepath=$(cd "$(dirname "$0")"; pwd)
 
+sys=`uname -s`
+
 echo -n "[*] Need to install tools? [y/N]"
 read choice
-if [ $choice = "y" -o $choice = "Y" ]
-then
-    echo "[*] Installing tools..."
-    sudo apt-get install zsh tmux autojump wget guake
-    # sudo apt-get install open-vm-tools-desktop fuse
+if [ $choice = "y" -o $choice = "Y" ]; then
+    echo "[*] Installing tools for ${sys}..."
+    if [ $sys = "Linux" ]; then
+        sudo apt-get install zsh tmux autojump wget guake
+    elif [ $sys = "Darwin" ]; then
+        echo "do nothing..."
+    fi
 else
     echo "[*] Do nothing..."
 fi
 
 
+#install vim configs
 if [ -f ~/.vimrc ]; then
     mv ~/.vimrc ~/.vimrc.bak
 fi
 echo "source $filepath/vimrc" > ~/.vimrc
 
 
+#install vim-plug
 if [ ! -d ~/.vim/autoload ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -28,18 +34,21 @@ else
 fi
 
 
+#install tmux configs
 if [ -f ~/.tmux.conf ]; then
     mv ~/.tmux.conf ~/.tmux.conf.bak
 fi
 echo "source $filepath/tmux.conf" > ~/.tmux.conf
 
 
+#install zsh configs
 if [ -f ~/.zshrc ]; then
     mv ~/.zshrc ~/.zshrc.bak
 fi
 echo "source $filepath/zshrc" > ~/.zshrc
 
 
+#install oh-my-zsh
 if [ ! -d ~/.oh-my-zsh ]
 then
     wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
