@@ -20,10 +20,11 @@ Plug 'rking/ag.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'fatih/vim-go'
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'SirVer/ultisnips'
 Plug 'terryma/vim-multiple-cursors'
-"Plug 'mbbill/undotree'
-"Plug 'tpope/vim-fugitive'
-"Plug 'godlygeek/tabular' 
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -70,7 +71,7 @@ set cindent
 " 在行和段开始处使用制表符
 set smarttab
 " 显示行号
-set number
+"set number
 "set relativenumber
 " 历史记录数
 set history=1000
@@ -139,7 +140,7 @@ nmap <leader>W :w !sudo tee % > /dev/null<CR>
 map <C-d> ggVG
 map! <C-d> <Esc>ggVGY
 "选中状态下 Ctrl+c 复制
-"vmap <C-c> +y
+vmap <C-c> "+y
 "选中状态下 Ctrl+x 剪切
 "vmap <C-x> +d
 "普通模式下 Ctrl+d 粘贴
@@ -174,7 +175,55 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-go  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_template_autocreate = 0
+"let g:go_template_autocreate = 0
+nnoremap cn :cnext<CR>
+nnoremap cm :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+nnoremap gs :GoDecls<cr>
+nnoremap gm :GoDeclsDir<cr>
+nnoremap gl :GoAlternate<cr>
+
+"let g:go_fmt_autosave = 0
+"let g:go_fmt_command = "goimports" 
+
+"let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+
+"let g:go_metalinter_autosave = 1
+"let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+
+let g:go_metalinter_deadline = "5s"
+
+"autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+"autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+"autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+"autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+
+"let g:go_def_mode = 'godef'
+
+let g:go_decls_includes = "func, type"
+
+"let g:go_auto_type_info = 1
+"set updatetime=1000
+
+"let g:go_auto_sameids = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nerdtree  
@@ -194,8 +243,9 @@ map <C-P> :FZF<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctrlp  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<c-,>'
 "let g:ctrlp_cmd = 'CtrlP'
+"let g:ctrlp_working_path_mode = 'c'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " molokai  
@@ -334,7 +384,7 @@ nmap s <Plug>(easymotion-s)
 " or
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-s2)
+"nmap s <Plug>(easymotion-s2)
 
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -397,11 +447,11 @@ autocmd bufnewfile *.py call HeaderPython()
 " ctags & cscope  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ":autocmd BufWritePost * call system("ctags -R --exclude=.git")
-set tags=/home/gen/stide_v1.2/tags
+set tags=/home/gen/common/src/server/tags
 "set tags=/home/gen/os-lab1/tags
 "set tags=/home/doge/ics2015/tags
 
-cs add /home/gen/stide_v1.2/cscope.out /home/gen/stide_v1.2
+cs add ~/Scripts/cscope.out ~/Scripts
 "cs add /home/gen/os-lab1/cscope.out /home/gen/os-lab1
 "cs add /home/doge/ics2015/cscope.out /home/doge/ics2015
 

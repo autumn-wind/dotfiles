@@ -9,7 +9,8 @@ read choice
 if [ $choice = "y" -o $choice = "Y" ]; then
     echo "[*] Installing tools for ${sys}..."
     if [ $sys = "Linux" ]; then
-        sudo apt-get install zsh tmux autojump wget guake
+        sudo apt-get install zsh tmux autojump wget curl
+        sudo yum install zsh tmux autojump wget curl
     elif [ $sys = "Darwin" ]; then
         echo "do nothing..."
     fi

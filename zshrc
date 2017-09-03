@@ -63,8 +63,11 @@ plugins=(git autojump)
   export PATH=$HOME/mongodb/mongodb-linux-x86_64-3.4.4/bin:$PATH
 
   export GOROOT=$HOME/go
-  export GOPATH=$HOME/GoWorkspace
-  #export GOBIN=$GOPATH/bin
+  #export GOPATH=$HOME/GoWorkspace
+  export GOPATH=$HOME/common/src/go
+  
+  #export GOPATH=$HOME/common/src/go
+  
   export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 source $ZSH/oh-my-zsh.sh
@@ -113,6 +116,7 @@ alias vv='vim $DOTFILES/vimrc'
 alias vt='vim $DOTFILES/tmux.conf'
 alias vz='vim $DOTFILES/zshrc'
 alias sz='source ~/.zshrc'
+alias td='vim ~/Nutstore/to-do.txt'
 
 alias t2x='tmux show-buffer | xclip -selection clipboard'
 alias x2t='tmux set-buffer "$(xclip -o)"'
